@@ -82,7 +82,7 @@ exports.signup = async (req, res) => {
         })
 
         const user = await User.create({
-            firstName: firstName,
+            firstName: firstName, 
             lastName: lastName,
             email: email,
             contactNumber: contactNumber,
