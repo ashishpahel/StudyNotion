@@ -78,7 +78,7 @@ exports.signup = async (req, res) => {
             gender: null,
             dateOfBirth: null,
             about: null,
-            contactNumber: Number,
+            contactNumber: contactNumber,
         })
 
         const user = await User.create({
@@ -170,7 +170,7 @@ exports.login = async (req, res) => {
         } else {
             return res.status(400).json({
                 success: false,
-                message: `Password is incorrect`,
+                message: `User credentials are incorrect`,
             });
         }
     } catch (error) {
