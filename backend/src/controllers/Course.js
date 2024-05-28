@@ -46,8 +46,8 @@ exports.createCourse = async (req, res) => {
 
         // Check if the user is an instructor
         const instructorDetails = await User.findOne({
-            _id: userId,           
-            accountType: "Instructor" 
+            _id: userId,
+            accountType: "Instructor"
         });
 
         if (!instructorDetails) {
@@ -105,6 +105,34 @@ exports.createCourse = async (req, res) => {
         res.status(500).json({
             success: false,
             message: "Failed to create course",
+            error: error.message,
+        });
+    }
+}
+
+exports.getAllCourses = async (req, res) => {
+    try {
+        const allCourses = await Course.find(
+            {},
+            {
+                courseName: true,
+                price: true,
+                thumbnail: true,
+                instructor: true,
+                ratingAndReviews: true,
+                studentsEnroled: true,
+            }
+        ).populate("instructor").exec();
+
+        return res.status(200).json({
+            success: true,
+            data: allCourses,
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            success: false,
+            message: `Can't Fetch Course Data`,
             error: error.message,
         });
     }
