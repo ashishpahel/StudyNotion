@@ -16,7 +16,7 @@ exports.resetPasswordToken = async (req, res) => {
 
         const user = await User.findOne({ email: email });
         if (!user) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: `This Email: ${email} is not Registered With Us Enter a Valid Email `,
             });
@@ -41,14 +41,14 @@ exports.resetPasswordToken = async (req, res) => {
             `Your Link for email verification is ${url}. Please click this url to reset your password.`
         );
 
-        res.json({
+        res.status(400).json({
             success: true,
             message:
                 "Email Sent Successfully, Please Check Your Email to Continue Further",
         });
 
     } catch (error) {
-        return res.json({
+        return res.status(400).json({
             success: false,
             message: `Some Error in Sending the Reset email`,
             error: error.message,
@@ -68,7 +68,7 @@ exports.resetPassword = async (req, res) => {
         }
 
         if (confirmPassword !== password) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: "Password and Confirm Password does not Match",
             });
@@ -77,7 +77,7 @@ exports.resetPassword = async (req, res) => {
         const userDetails = await User.findOne({ token: token });
 
         if (!userDetails) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: "Token is Invalid",
             });

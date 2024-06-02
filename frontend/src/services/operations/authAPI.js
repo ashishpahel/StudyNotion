@@ -69,9 +69,8 @@ export function signUp(
             }
 
             toast.success(response.data.message || "Signup Successful");
-            navigate("/login");
-
             dispatch(setLoading(false));
+            navigate("/login");
         } catch (error) {
             toast.error(error.response.data.message || "Signup Failed")
             dispatch(setLoading(false));
@@ -105,7 +104,7 @@ export function login(email, password, navigate) {
             localStorage.setItem("token", JSON.stringify(response.data.token));
 
             toast.success(response.data.message || "Login Successful");
-
+            dispatch(setLoading(false));
             navigate("/dashboard/my-profile")
 
         } catch (error) {
@@ -157,9 +156,8 @@ export function resetPassword(password, confirmPassword, token, navigate) {
             }
 
             toast.success(response.data.message || "Password Reset Successfully")
-            navigate("/login")
-
             dispatch(setLoading(false))
+            navigate("/login")   
         } catch (error) {
             toast.error(error.response.data.message || "Failed To Reset Password")
             dispatch(setLoading(false))
@@ -169,12 +167,12 @@ export function resetPassword(password, confirmPassword, token, navigate) {
 
 export function logout(navigate) {
     return (dispatch) => {
-      dispatch(setToken(null))
-      dispatch(setUser(null))
-      dispatch(resetCart())
-      localStorage.removeItem("token")
-      localStorage.removeItem("user")
-      toast.success("Logged Out")
-      navigate("/")
+        dispatch(setToken(null))
+        dispatch(setUser(null))
+        dispatch(resetCart())
+        localStorage.removeItem("token")
+        localStorage.removeItem("user")
+        toast.success("Logged Out")
+        navigate("/")
     }
-  }
+}
