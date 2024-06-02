@@ -17,6 +17,7 @@ const {
 
 export function sendOtp(email, navigate) {
     return async (dispatch) => {
+        const toastId = toast.loading("Loading...")
         try {
             dispatch(setLoading(true));
 
@@ -28,13 +29,15 @@ export function sendOtp(email, navigate) {
             if (!response.data.success) {
                 throw new Error(response.data.message)
             }
-
+            
             toast.success(response.data.message || "OTP Sent Successfully")
+            toast.dismiss(toastId)
+            dispatch(setLoading(false))
             navigate("/verify-email")
 
-            dispatch(setLoading(false))
         } catch (error) {
             toast.error(error.response.data.message || "Could not send OTP");
+            toast.dismiss(toastId)
             dispatch(setLoading(false))
         }
     }
@@ -51,6 +54,7 @@ export function signUp(
     navigate
 ) {
     return async (dispatch) => {
+        const toastId = toast.loading("Loading...")
         try {
             dispatch(setLoading(true))
 
@@ -69,12 +73,13 @@ export function signUp(
             }
 
             toast.success(response.data.message || "Signup Successful");
+            toast.dismiss(toastId)
             dispatch(setLoading(false));
             navigate("/login");
         } catch (error) {
             toast.error(error.response.data.message || "Signup Failed")
+            toast.dismiss(toastId)
             dispatch(setLoading(false));
-            navigate("/signup");
         }
     }
 }
@@ -82,6 +87,7 @@ export function signUp(
 
 export function login(email, password, navigate) {
     return async (dispatch) => {
+        const toastId = toast.loading("Loading...")
         try {
             dispatch(setLoading(true));
 
@@ -104,11 +110,13 @@ export function login(email, password, navigate) {
             localStorage.setItem("token", JSON.stringify(response.data.token));
 
             toast.success(response.data.message || "Login Successful");
+            toast.dismiss(toastId)
             dispatch(setLoading(false));
             navigate("/dashboard/my-profile")
 
         } catch (error) {
             toast.error(error.response.data.message || "Login Failed")
+             toast.dismiss(toastId)
             dispatch(setLoading(false));
         }
     }
@@ -118,6 +126,7 @@ export function login(email, password, navigate) {
 
 export function getPasswordResetToken(email, setEmailSent) {
     return async (dispatch) => {
+        const toastId = toast.loading("Loading...")
         try {
             dispatch(setLoading(true))
             const response = await apiConnector("POST", RESETPASSTOKEN_API, {
@@ -130,11 +139,12 @@ export function getPasswordResetToken(email, setEmailSent) {
 
             toast.success(response.data.message || "Reset Email Sent")
             setEmailSent(true)
-
+            toast.dismiss(toastId)
             dispatch(setLoading(false))
 
         } catch (error) {
             toast.error(error.response.data.message || "Failed To Send Reset Link")
+            toast.dismiss(toastId)
             dispatch(setLoading(false))
         }
     }
@@ -142,6 +152,7 @@ export function getPasswordResetToken(email, setEmailSent) {
 
 export function resetPassword(password, confirmPassword, token, navigate) {
     return async (dispatch) => {
+        const toastId = toast.loading("Loading...")
         try {
             dispatch(setLoading(true))
 
@@ -156,10 +167,12 @@ export function resetPassword(password, confirmPassword, token, navigate) {
             }
 
             toast.success(response.data.message || "Password Reset Successfully")
+            toast.dismiss(toastId)
             dispatch(setLoading(false))
             navigate("/login")   
         } catch (error) {
             toast.error(error.response.data.message || "Failed To Reset Password")
+            toast.dismiss(toastId)
             dispatch(setLoading(false))
         }
     }

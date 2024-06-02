@@ -20,7 +20,6 @@ exports.signup = async (req, res) => {
             password,
             confirmPassword,
             accountType,
-            contactNumber,
             otp,
         } = req.body;
 
@@ -78,14 +77,13 @@ exports.signup = async (req, res) => {
             gender: null,
             dateOfBirth: null,
             about: null,
-            contactNumber: contactNumber,
+            contactNumber: null,
         })
 
         const user = await User.create({
             firstName: firstName, 
             lastName: lastName,
             email: email,
-            contactNumber: contactNumber,
             password: hashedPassword,
             accountType: accountType,
             approved: approved,

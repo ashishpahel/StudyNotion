@@ -33,7 +33,7 @@ exports.resetPasswordToken = async (req, res) => {
             { new: true }
         )
 
-        const url = `${process.env.APP_URL}update-password/${token}`;
+        const url = `${process.env.FRONTEND_URL}/update-password/${token}`;
 
         await mailSender(
             email,
@@ -41,7 +41,7 @@ exports.resetPasswordToken = async (req, res) => {
             `Your Link for email verification is ${url}. Please click this url to reset your password.`
         );
 
-        res.status(400).json({
+        res.status(200).json({
             success: true,
             message:
                 "Email Sent Successfully, Please Check Your Email to Continue Further",

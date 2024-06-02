@@ -37,6 +37,7 @@ exports.auth = async (req, res, next) => {
         return res.status(401).json({
             success: false,
             message: 'Something went wrong while validating the token',
+            error: error.message,
         });
     }
 }
@@ -55,7 +56,9 @@ exports.isStudent = async (req, res, next) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: 'User role cannot be verified, please try again'
+            message: 'User role cannot be verified, please try again',
+            error: error.message,
+
         })
     }
 }
@@ -74,7 +77,8 @@ exports.isInstructor = async (req, res, next) => {
     catch (error) {
         return res.status(500).json({
             success: false,
-            message: 'User role cannot be verified, please try again'
+            message: 'User role cannot be verified, please try again',
+            error: error.message,
         })
     }
 }
@@ -93,7 +97,8 @@ exports.isAdmin = async (req, res, next) => {
     catch (error) {
         return res.status(500).json({
             success: false,
-            message: 'User role cannot be verified, please try again'
+            message: 'User role cannot be verified, please try again',
+            error: error.message,
         })
     }
 }
