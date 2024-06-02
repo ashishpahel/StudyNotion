@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { toast } from "react-hot-toast"
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 import { sendOtp } from "../../../services/operations/authAPI"
@@ -10,11 +10,13 @@ import { ACCOUNT_TYPE } from "../../../utils/constants"
 import Tab from "../../common/Tab"
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { Oval, Vortex } from 'react-loader-spinner'
 
 function SignupForm() {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const { loading } = useSelector((state) => state.auth)
 
     // student or instructor
     const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT)
@@ -193,8 +195,26 @@ function SignupForm() {
                 <button
                     type="submit"
                     className="mt-6 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-medium text-richblack-900"
+                    disabled={loading}
                 >
-                    Create Account
+                    {
+                        loading ? (
+                            <div className="flex items-center justify-center">
+                                <Vortex
+                                    visible={true}
+                                    height="35"
+                                    width="50"
+                                    ariaLabel="vortex-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClass="vortex-wrapper"
+                                    colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+                                />
+                            </div>
+                        ) : (
+                            "Create Account"
+                        )
+                    }
+
                 </button>
             </form>
         </div>

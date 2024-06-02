@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import { resetPassword } from "../services/operations/authAPI"
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { Oval, Vortex } from 'react-loader-spinner'
 
 function UpdatePassword() {
   const navigate = useNavigate()
@@ -107,8 +108,26 @@ function UpdatePassword() {
             <button
               type="submit"
               className="mt-6 w-full rounded-[8px] bg-yellow-50 py-[12px] px-[12px] font-medium text-richblack-900"
+              disabled={loading}
             >
-              Reset Password
+              {
+                loading ? (
+                  <div className="flex items-center justify-center">
+                    <Vortex
+                      visible={true}
+                      height="35"
+                      width="50"
+                      ariaLabel="vortex-loading"
+                      wrapperStyle={{}}
+                      wrapperClass="vortex-wrapper"
+                      colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+                    />
+                  </div>
+                ) : (
+                  "Reset Password"
+                )
+              }
+
             </button>
           </form>
           <div className="mt-6 flex items-center justify-between">
