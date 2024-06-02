@@ -34,7 +34,7 @@ export function sendOtp(email, navigate) {
 
             dispatch(setLoading(false))
         } catch (error) {
-            toast.error(error.message || "Could not send OTP");
+            toast.error(error.response.data.message || "Could not send OTP");
             dispatch(setLoading(false))
         }
     }
@@ -73,7 +73,7 @@ export function signUp(
 
             dispatch(setLoading(false));
         } catch (error) {
-            toast.error(error.message || "Signup Failed")
+            toast.error(error.response.data.message || "Signup Failed")
             dispatch(setLoading(false));
             navigate("/signup");
         }
@@ -90,6 +90,8 @@ export function login(email, password, navigate) {
                 email,
                 password
             })
+            console.log("asssssssss");
+            console.log(response);
 
             if (!response.data.success) {
                 throw new Error(response.data.message)
@@ -107,7 +109,7 @@ export function login(email, password, navigate) {
             navigate("/dashboard/my-profile")
 
         } catch (error) {
-            toast.error(error.message || "Login Failed")
+            toast.error(error.response.data.message || "Login Failed")
             dispatch(setLoading(false));
         }
     }
@@ -133,7 +135,8 @@ export function getPasswordResetToken(email, setEmailSent) {
             dispatch(setLoading(false))
 
         } catch (error) {
-
+            toast.error(error.response.data.message || "Failed To Send Reset Link")
+            dispatch(setLoading(false))
         }
     }
 }
@@ -158,7 +161,7 @@ export function resetPassword(password, confirmPassword, token, navigate) {
 
             dispatch(setLoading(false))
         } catch (error) {
-            toast.error(error.message || "Failed To Reset Password")
+            toast.error(error.response.data.message || "Failed To Reset Password")
             dispatch(setLoading(false))
         }
     }
