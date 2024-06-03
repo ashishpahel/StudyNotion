@@ -26,14 +26,14 @@ exports.contactUs = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: "Email sent successfully",
+            message: "Enquiry Form Submit successfully",
         });
 
     } catch (error) {
         console.error("Error occurred while sending email:", error);
         return res.status(500).json({
             success: false,
-            message: "Error occurred while sending email",
+            message: "Error occurred while sending enquiry form",
             error: error.message,
         });
     }

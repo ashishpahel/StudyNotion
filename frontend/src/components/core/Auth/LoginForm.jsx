@@ -30,8 +30,6 @@ function LoginForm() {
         },
     });
 
-
-
     return (
         <form
             onSubmit={formik.handleSubmit}
@@ -87,23 +85,23 @@ function LoginForm() {
                 className="mt-6 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-medium text-richblack-900"
                 disabled={loading}
             >
-                 {
-                        loading ? (
-                            <div className="flex items-center justify-center">
-                                <Vortex
-                                    visible={true}
-                                    height="35"
-                                    width="50"
-                                    ariaLabel="vortex-loading"
-                                    wrapperStyle={{}}
-                                    wrapperClass="vortex-wrapper"
-                                    colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
-                                />
-                            </div>
-                        ) : (
-                            "Sign In"
-                        )
-                    }
+                {
+                    loading ? (
+                        <div className="flex items-center justify-center">
+                            <Vortex
+                                visible={true}
+                                height="35"
+                                width="50"
+                                ariaLabel="vortex-loading"
+                                wrapperStyle={{}}
+                                wrapperClass="vortex-wrapper"
+                                colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+                            />
+                        </div>
+                    ) : (
+                        "Sign In"
+                    )
+                }
 
             </button>
         </form>
